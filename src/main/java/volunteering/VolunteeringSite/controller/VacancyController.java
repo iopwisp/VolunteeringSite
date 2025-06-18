@@ -2,6 +2,8 @@ package volunteering.VolunteeringSite.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import volunteering.VolunteeringSite.model.User;
 import volunteering.VolunteeringSite.model.Vacancy;
@@ -21,7 +23,7 @@ public class VacancyController {
     private final ApplyOnVacancy applyOnVacancy;
     private final EditVacancy editVacancy;
 
-    @PostMapping("/create")
+    @RequestMapping
     public ResponseEntity<Vacancy> createVacancy(@RequestBody Vacancy vacancy){
         Vacancy saved = vacancyService.createVacancy(vacancy);
         return ResponseEntity.ok(saved);
@@ -51,5 +53,11 @@ public class VacancyController {
     public ResponseEntity<String> editVacancy(@PathVariable Long id , @RequestBody VacancyDTO dto){
         editVacancy.editVacancy(id , dto);
         return ResponseEntity.ok("Vacancy updated");
+    }
+
+    @GetMapping("/")
+    public String home(Model model, OAuth2AuthenticationToken token) {
+        model.addAttribute("user", token.getPrincipal().getAttributes());
+        return "home";
     }
 }

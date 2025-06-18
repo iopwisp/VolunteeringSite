@@ -7,13 +7,12 @@ import volunteering.VolunteeringSite.repo.VacancyRepository;
 
 @Service
 @RequiredArgsConstructor
-public class VacancyService implements VacancyServiceIMPL{
+public class VacancyService{
 
     private final VacancyRepository vacancyRepository;
 
-    @Override
     public Vacancy createVacancy(Vacancy vacancy) {
         System.out.println("Saving vacancy: " + vacancy);
         return vacancyRepository.save(vacancy);
-        }
+    }
 }
