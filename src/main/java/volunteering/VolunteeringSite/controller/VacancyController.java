@@ -23,7 +23,7 @@ public class VacancyController {
     private final ApplyOnVacancy applyOnVacancy;
     private final EditVacancy editVacancy;
 
-    @RequestMapping
+    @PostMapping("/vacancy")
     public ResponseEntity<Vacancy> createVacancy(@RequestBody Vacancy vacancy){
         Vacancy saved = vacancyService.createVacancy(vacancy);
         return ResponseEntity.ok(saved);
@@ -33,6 +33,13 @@ public class VacancyController {
     public ResponseEntity<Vacancy> deletedVacancy(@PathVariable Long id){
         deleteVacancy.deleteVacancy(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/filter")
+    public List<Vacancy> sortVacancy(@RequestParam(required = false) String status,
+                                     @RequestParam(required = false) String title)
+    {
+        return vacancyService.getFiltered(status, title);
     }
 
     @GetMapping("/{id}/applicants")

@@ -17,8 +17,9 @@ spring:
       client:
         registration:
           google:
-            client-id: 56232*
-            client-secret: G**gle
+            client-id: 56232*-
+            client-secret: G**gle-
+#            will create env file with secrets
             scope:
               - profile
               - email
